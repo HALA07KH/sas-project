@@ -18,16 +18,16 @@ typedef struct
 
 int conteur = 10;
 joueur jr[200] = {
-    {1, "Ronaldo", "Cristiano", 7, "Attaquant", 39, 850},
-    {2, "Messi", "Lionel", 10, "Attaquant", 36, 800},
-    {3, "Neymar", "Junior", 11, "Attaquant", 32, 400},
-    {4, "Mbappe", "Kylian", 7, "Attaquant", 25, 200},
+    {1, "Dybala", "Paulo", 7, "Attaquant", 39, 850},
+    {2, "Hakimi", "Achraf", 2, "Defenseur", 26, 800},
+    {3, "Noussair", "Mezraoui", 11, "Defenseur", 27, 400},
+    {4, "Karim", "Benzima", 7, "Attaquant", 25, 200},
     {5, "Modric", "Luka", 10, "Milieu", 38, 100},
-    {6, "Salah", "Mohamed", 11, "Attaquant", 31, 250},
+    {6, "Drogba", "Didier", 11, "Defenseur", 31, 250},
     {7, "De Bruyne", "Kevin", 17, "Milieu", 32, 150},
-    {8, "Van Dijk", "Virgil", 4, "Defenseur", 33, 50},
-    {9, "Alisson", "Becker", 1, "Gardien", 31, 0},
-    {10, "Kante", "N'Golo", 7, "Milieu", 32, 80}};
+    {8, "Amrabet", "Soufiane", 4, "Milieu", 33, 50},
+    {9, "Bounou", "Yassine", 1, "Gardien", 31, 0},
+    {10, "Ziyech", "Hakim", 7, "Attaquant", 32, 80}};
 
 void ajouter1joueur()
 {
@@ -35,11 +35,10 @@ void ajouter1joueur()
     printf("entrer un nom de joueur: ");
     scanf(" %s", jr[conteur].nom);
     printf("Name : %s", jr[conteur].nom);
-    
 
     printf("entrer un prenom de joueur: ");
     getchar();
-    fgets(jr[conteur].prenom, sizeof(jr[conteur].prenom), stdin);
+    scanf(" %s", jr[conteur].prenom);
     printf("Prenom : %s", jr[conteur].prenom);
 
     printf("entrer un numero de maillot : ");
@@ -47,7 +46,7 @@ void ajouter1joueur()
     printf("NmrMaillot: %d", jr[conteur].numeroMaillot);
 
     printf("entrer le poste du joueur : ");
-    fgets(jr[conteur].poste, sizeof(jr[conteur].poste), stdin);
+    scanf(" %s", jr[conteur].poste);
     printf("Poste : %s", jr[conteur].poste);
 
     printf("entrer l'age du joueur: ");
@@ -73,29 +72,29 @@ void plusieursjoueurs()
     for (int i = 0; i < nbrefois; i++)
     {
 
-    printf("entrer un nom de joueur: ");
-    fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
-    printf("Name : %s", jr[conteur].nom);
+        printf("entrer un nom de joueur: ");
+        scanf(" %s", jr[conteur].nom);
+        printf("Name : %s", jr[conteur].nom);
 
-    printf("entrer un prenom de joueur: ");
-    fgets(jr[conteur].prenom, sizeof(jr[conteur].prenom), stdin);
-    printf("Prenom : %s", jr[conteur].prenom);
+        printf("entrer un prenom de joueur: ");
+        scanf(" %s", jr[conteur].prenom);
+        printf("Prenom : %s", jr[conteur].prenom);
 
-    printf("entrer un numero de maillot : ");
-    scanf("%d", &jr[conteur].numeroMaillot);
-    printf("NmrMaillot: %d", jr[conteur].numeroMaillot);
+        printf("entrer un numero de maillot : ");
+        scanf("%d", &jr[conteur].numeroMaillot);
+        printf("NmrMaillot: %d", jr[conteur].numeroMaillot);
 
-    printf("entrer le poste du joueur : ");
-    fgets(jr[conteur].poste, sizeof(jr[conteur].poste), stdin);
-    printf("Poste : %s", jr[conteur].poste);
+        printf("entrer le poste du joueur : ");
+        scanf(" %s", jr[conteur].poste);
+        printf("Poste : %s", jr[conteur].poste);
 
-    printf("entrer l'age du joueur: ");
-    scanf("%d", &jr[conteur].age);
-    printf("Age : %d", jr[conteur].age);
+        printf("entrer l'age du joueur: ");
+        scanf("%d", &jr[conteur].age);
+        printf("Age : %d", jr[conteur].age);
 
-    printf("entrer le nombre de buts: ");
-    scanf("%d", &jr[conteur].buts);
-    printf("Buts : %d", jr[conteur].buts);
+        printf("entrer le nombre de buts: ");
+        scanf("%d", &jr[conteur].buts);
+        printf("Buts : %d", jr[conteur].buts);
 
         jr[conteur].Id = rand() % 99999 + 10000;
         conteur++;
@@ -129,7 +128,7 @@ void ajouterjoueur()
     } while (option != 0);
 }
 
-void afficherunjoueur()
+void afficherjoueur()
 {
     int option;
     joueur temp;
@@ -162,7 +161,7 @@ void afficherunjoueur()
                         jr[j] = temp;
                     }
                     break;
-                    case 15:
+                case 15:
                     if (strcmp(jr[i].poste, jr[j].poste) > 0)
                     {
 
@@ -183,12 +182,93 @@ void afficherunjoueur()
             printf("Poste: %s\n", jr[i].poste);
             printf("Age: %d\n", jr[i].age);
             printf("Buts: %d\n", jr[i].buts);
-            printf("-----------------------\n");
+            printf("*****************\n");
         }
     } while (option != 0);
 }
 
-int main()
+void modifierjoueur() {
+
+int rechercher;
+int trouver=0;
+int taille;
+int option;
+
+    printf("entrer le nom du joueur :");
+    scanf("%d",&rechercher);
+
+    for(int i=0;i<taille;i++)
+    {
+       if(strcmp(jr.nom[i],rechercher) == 0){
+        printf("Nom : %s\nprenom : %s\n",jr.name[i],jr.prenom[i]); 
+        do{
+            printf("16.Moifier poste\n17.Modifier age\n18.Modifier nbre de buts\0.Quitter\nChoisir : ");
+            scanf("%d",&option);
+
+            switch(option){
+                case 16:
+                printf("entrer le nouveau poste :");
+                scanf("%s",jr.poste[i]);
+                printf("Poste : %s\n",jr[i].poste);
+                break;
+
+                case 17:
+                printf("entrer un nouveau age :");
+                scanf("%d",&jr.age[i]);
+                printf("Age : %d\n",jr[i].age);
+                break;
+
+                case 18:
+                printf("entrer le nouveau nbre de buts :");
+                scanf("%d",&jr.buts[i]);
+                printf("Nbre buts: %s\n",jr[i].buts);
+                break;
+                default:printf("option invalid\n");break;
+            }
+
+
+        }while(option != 0);
+
+        printf("entrer le nouveau poste :");
+        scanf("%s",jr.poste[i]);
+        printf("Poste : %s\n",jr[i].poste);
+
+        printf("entrer un nouveau age :");
+        scanf("%d",&jr.age[i]);
+        printf("Age : %d\n",jr[i].age);
+
+        printf("entrer le nouveau nbre de buts :");
+                scanf("%d",&jr.buts[i]);
+                printf("Nbre buts: %s\n",jr[i].buts);
+
+        trouver=1;
+        break;
+
+       }
+            
+    }
+    if(trouver=0)
+    printf("joueur inexistant\n");
+}
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    int main()
 {
     srand(time(NULL));
     int option;
@@ -197,7 +277,7 @@ int main()
     {
         printf("**********Equipe de Football*********\n");
 
-        printf("1.Ajouterjoueur\n2.afficherunjoueur\n0.Quitter\nChoisir : ");
+        printf("1.Ajouterjoueur\n2.afficherjoueur\n3.modifierjoueur\n0.Quitter\nChoisir : ");
         scanf("%d", &option);
 
         switch (option)
@@ -206,7 +286,10 @@ int main()
             ajouterjoueur();
             break;
         case 2:
-            afficherunjoueur();
+            afficherjoueur();
+            break;
+        case 3:
+            modifierjoueur();
             break;
         case 0:
             printf("Vous avez quitter\n");
