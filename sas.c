@@ -18,17 +18,16 @@ typedef struct
 
 int conteur = 10;
 joueur jr[200] = {
-    {1, "Dybala", "Paulo", 7, "Attaquant", 39, 850},
-    {2, "Hakimi", "Achraf", 2, "Defenseur", 26, 800},
-    {3, "Noussair", "Mezraoui", 11, "Defenseur", 27, 400},
-    {4, "Karim", "Benzima", 7, "Attaquant", 25, 200},
-    {5, "Modric", "Luka", 10, "Milieu", 38, 100},
-    {6, "Drogba", "Didier", 11, "Defenseur", 31, 250},
-    {7, "De Bruyne", "Kevin", 17, "Milieu", 32, 150},
-    {8, "Amrabet", "Soufiane", 4, "Milieu", 33, 50},
-    {9, "Bounou", "Yassine", 1, "Gardien", 31, 0},
-    {10, "Ziyech", "Hakim", 7, "Attaquant", 32, 80}
-};
+    {1, "Dybala", "Paulo", 7, "attaquant", 39, 850},
+    {2, "Hakimi", "Achraf", 2, "defenseur", 26, 800},
+    {3, "Noussair", "Mezraoui", 11, "defenseur", 27, 400},
+    {4, "Karim", "Benzima", 7, "attaquant", 25, 200},
+    {5, "Modric", "Luka", 10, "milieu", 38, 100},
+    {6, "Drogba", "Didier", 11, "defenseur", 31, 250},
+    {7, "De Bruyne", "Kevin", 17, "milieu", 32, 150},
+    {8, "Amrabet", "Soufiane", 4, "milieu", 33, 50},
+    {9, "Bounou", "Yassine", 1, "gardien", 31, 0},
+    {10, "Ziyech", "Hakim", 7, "attaquant", 32, 80}};
 
 void ajouter1joueur()
 {
@@ -190,7 +189,7 @@ void afficherjoueur()
                     break;
 
                 case 2:
-                    if (jr[i].age, jr[j].age > 0)
+                    if (jr[i].age > jr[j].age)
                     {
                         temp = jr[i];
                         jr[i] = jr[j];
@@ -198,12 +197,22 @@ void afficherjoueur()
                     }
                     break;
                 case 3:
-                    if (strcmp(jr[i].poste, jr[j].poste) > 0)
+                    char poste[][50] = {"attaquant", "defenseur", "milieu", "guardien"};
+                    for (int i = 0; i < 4; i++)
                     {
-
-                        temp = jr[i];
-                        jr[i] = jr[j];
-                        jr[j] = temp;
+                        printf("%s: ", poste[i]);
+                        for (int j = 0; j < conteur; j++)
+                            if (strcmp(poste[i], jr[j].poste) == 0)
+                            {
+                                printf("Id: %d\n", jr[i].Id);
+                                printf("Nom: %s\n", jr[i].nom);
+                                printf("Prenom: %s\n", jr[i].prenom);
+                                printf("NmrMaillot: %d\n", jr[i].numeroMaillot);
+                                printf("Poste: %s\n", jr[i].poste);
+                                printf("Age: %d\n", jr[i].age);
+                                printf("Buts: %d\n", jr[i].buts);
+                                printf("*****************\n");
+                            }
                     }
                     break;
                 default:
@@ -230,14 +239,13 @@ void modifierjoueur()
 
     char demander[200];
     int trouver = 0;
-    int taille;
     int option;
 
     printf("entrer le nom du joueur :");
-    fgets(demander, sizeof(demander), stdin);
+    scanf("%s", demander);
     getchar();
 
-    for (int i = 0; i < taille; i++)
+    for (int i = 0; i < conteur; i++)
     {
         if (strcmp(jr[i].nom, demander) == 0)
         {
@@ -313,18 +321,18 @@ void modifierjoueur()
 
 void supprimerjoueur()
 {
-    int demander;
+    int id;
     int trouver = 0;
-    int taille;
 
     printf("L'id de joueur que vous voulez supprimer :");
-    scanf("%d", &demander);
+    scanf("%d", &id);
     getchar();
 
-    for (int i = 0; i < taille; i++)
+    for (int i = 0; i < conteur; i++)
     {
-        if (jr[i].Id == demander)
+        if (jr[i].Id == id)
         {
+
             trouver = 1;
         }
         else if (trouver == 1)
@@ -332,15 +340,72 @@ void supprimerjoueur()
             jr[i - 1] = jr[i];
         }
     }
+
+    if (trouver == 1)
+    {
+        conteur--;
+    }
+
     if (trouver == 0)
-        printf("%d du joueur non trouver\n", demander);
+        printf("%d du joueur non trouver\n", id);
 }
 
-void rechercherjoueur(){
+void rechercherjoueur()
+{
+    printf("recherche avac [1]id ou [2]nom ou [0] pour quite");
+    int choix;
+    scanf("%d", &choix);
+    int trouver = 0;
 
+    if (choix == 1)
+    {
+        char demander[200];
+        printf("Nom du joueur a rechercher : ");
+        fgets(demander, sizeof(demander), stdin);
+        for (int i = 0; i < conteur; i++)
+        {
+            if (strcmp(jr[i].nom, demander) == 0)
+            {
+                printf("joueur trouve\nNom : %s\nPrenom : %s\n", jr[i].nom, jr[i].prenom);
+                trouver = 1;
+            }
+        }
+    }
+    else if (choix == 2)
+    {
+        int dmd;
+        printf("l'id a rechercher : ");
+        scanf("%d", &dmd);
+        getchar();
+        for (int i = 0; i < conteur; i++)
+        {
+            if (jr[i].Id == dmd)
+            {
+                printf("joueur trouve\nID : %d\nNom : %s\nPrenom : %s\n", jr[i].Id, jr[i].nom, jr[i].prenom);
+                trouver = 1;
+            }
+        }
+    }
+    else if (choix == 0)
+    {
+        printf("Vous avez quitter\n");
+        return;
+    }
+    else
+    {
+        printf("Choix invalid\n");
+    }
+    if (trouver == 0)
+        printf("joueur introuvable\n");
 }
 
-    int main()
+statistiques(){
+    
+}
+
+
+
+int main()
 {
     srand(time(NULL));
 
@@ -350,7 +415,7 @@ void rechercherjoueur(){
     {
         printf("**********Equipe de Football*********\n");
 
-        printf("1.Ajouterjoueur\n2.afficherjoueur\n3.modifierjoueur\n4.supprimerjoueur\n5.rechercherjoueur\n0.Quitter\nChoisir : ");
+        printf("1.Ajouterjoueur\n2.afficherjoueur\n3.modifierjoueur\n4.supprimerjoueur\n5.rechercherjoueur\n6.statistiques\n0.Quitter\nChoisir : ");
         scanf("%d", &option);
 
         switch (option)
@@ -370,6 +435,10 @@ void rechercherjoueur(){
         case 5:
             rechercherjoueur();
             break;
+        case 6:
+            statistiques();
+            break
+    
         case 0:
             printf("Vous avez quitter\n");
             break;

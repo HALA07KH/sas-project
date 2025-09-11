@@ -3,13 +3,13 @@ void modifierjoueur()
 
     char demander[200];
     int trouver = 0;
-    int taille;
+    int conteur;
     int option;
 
     printf("entrer le nom du joueur :");
     scanf("%s", demander);
 
-    for (int i = 0; i < taille; i++)
+    for (int i = 0; i < conteur; i++)
     {
         if (strcmp(jr[i].nom, demander) == 0)
         {
