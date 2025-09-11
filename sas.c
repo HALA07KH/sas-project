@@ -352,7 +352,7 @@ void supprimerjoueur()
 
 void rechercherjoueur()
 {
-    printf("recherche avac [1]id ou [2]nom ou [0] pour quite");
+    printf("1.Rechercher par nom\n2.rechercher par ID\n0.quitter\nchoisir: ");
     int choix;
     scanf("%d", &choix);
     int trouver = 0;
@@ -360,8 +360,11 @@ void rechercherjoueur()
     if (choix == 1)
     {
         char demander[200];
+
         printf("Nom du joueur a rechercher : ");
-        fgets(demander, sizeof(demander), stdin);
+        scanf("%s",demander);
+        getchar();
+
         for (int i = 0; i < conteur; i++)
         {
             if (strcmp(jr[i].nom, demander) == 0)
@@ -399,8 +402,52 @@ void rechercherjoueur()
         printf("joueur introuvable\n");
 }
 
-statistiques(){
+void statistiques(){
+    int choix;
+
+    printf("1.Nbre total du joueurs dans l'equipe\n2.L'age moyen des joueurs\n3.joueurs ayant marque beacoup de buts\n4.meilleur buteur\n5.Lejoueur le plus jeune et le plus ager\n0.Quitter\nChoisir : ");
+    scanf("%d",&choix);
     
+    printf("**********\n");
+
+    switch(choix){
+        case 1: 
+        printf( " le nbre total du joueur est : %d\n ",conteur);
+        break;
+
+        case 2:
+        int Somme=0;
+        float Moyenne;
+         for(int i=0;i<conteur;i++){
+            Somme += jr[i].age;
+         }
+         Moyenne = Somme/conteur;
+         printf("L'age moyenne des joueurs : %d\n",jr[i].age);
+
+         case 3:
+
+         case 4:
+         int buts;
+
+         printf("nbre de buts a saisie :");
+         scanf("%d",&buts);
+         getchar();
+          
+         for(int i=0;i<conteur;i++){
+            if(jr[i].buts > buts){
+
+                printf("meilleur buteur :\nNom : \nPrenom\nNbre de buts : %d",jr[i].nom,jr[i].prenom,jr[i].buts);
+
+            }
+         }
+         breaks;
+
+
+
+
+    }
+
+
 }
 
 
@@ -437,7 +484,7 @@ int main()
             break;
         case 6:
             statistiques();
-            break
+            break;
     
         case 0:
             printf("Vous avez quitter\n");
