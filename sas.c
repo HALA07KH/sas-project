@@ -33,12 +33,12 @@ void ajouter1joueur()
 {
 
     printf("entrer un nom de joueur: ");
-    fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
+    scanf("%s",jr[conteur].nom);
     getchar(); // pour consommer le caractere de nouvelle ligne restant dans le buffer
     printf("Name : %s\n", jr[conteur].nom);
 
     printf("entrer un prenom de joueur: ");
-    fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
+    scanf("%s",jr[conteur].prenom);
     getchar();
     printf("Prenom : %s\n", jr[conteur].prenom);
 
@@ -48,7 +48,7 @@ void ajouter1joueur()
     printf("NmrMaillot: %d\n", jr[conteur].numeroMaillot);
 
     printf("entrer le poste du joueur : ");
-    fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
+    scanf("%s",jr[conteur].poste);
     getchar();
     printf("Poste : %s\n", jr[conteur].poste);
 
@@ -90,12 +90,12 @@ void plusieursjoueurs()
     {
 
         printf("entrer un nom de joueur: ");
-        fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
+        scanf("%s",jr[conteur].nom);
         getchar();
         printf("Name : %s\n", jr[conteur].nom);
 
         printf("entrer un prenom de joueur: ");
-        fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
+        scanf("%s",jr[conteur].prenom);
         getchar();
         printf("Prenom : %s\n", jr[conteur].prenom);
 
@@ -105,7 +105,7 @@ void plusieursjoueurs()
         printf("NmrMaillot: %d\n", jr[conteur].numeroMaillot);
 
         printf("entrer le poste du joueur : ");
-        fgets(jr[conteur].nom, sizeof(jr[conteur].nom), stdin);
+        scanf("%s",jr[conteur].poste);
         getchar();
         printf("Poste : %s\n", jr[conteur].poste);
 
@@ -352,8 +352,8 @@ void supprimerjoueur()
 
 void rechercherjoueur()
 {
-    printf("1.Rechercher par nom\n2.rechercher par ID\n0.quitter\nchoisir: ");
     int choix;
+    printf("1.Rechercher par nom\n2.rechercher par ID\n0.quitter\nchoisir: ");
     scanf("%d", &choix);
     int trouver = 0;
 
@@ -362,7 +362,7 @@ void rechercherjoueur()
         char demander[200];
 
         printf("Nom du joueur a rechercher : ");
-        scanf("%s",demander);
+        scanf("%s", demander);
         getchar();
 
         for (int i = 0; i < conteur; i++)
@@ -402,55 +402,125 @@ void rechercherjoueur()
         printf("joueur introuvable\n");
 }
 
-void statistiques(){
+void statistiques()
+{
     int choix;
 
     printf("1.Nbre total du joueurs dans l'equipe\n2.L'age moyen des joueurs\n3.joueurs ayant marque beacoup de buts\n4.meilleur buteur\n5.Lejoueur le plus jeune et le plus ager\n0.Quitter\nChoisir : ");
-    scanf("%d",&choix);
-    
+    scanf("%d", &choix);
+
     printf("**********\n");
 
-    switch(choix){
-        case 1: 
-        printf( " le nbre total du joueur est : %d\n ",conteur);
+    switch (choix)
+    {
+    case 1:
+        printf(" le nbre total du joueur est : %d\n ", conteur);
         break;
 
-        case 2:
-        int Somme=0;
+    case 2:
+        int Somme = 0;
         float Moyenne;
-         for(int i=0;i<conteur;i++){
+        for (int i = 0; i < conteur; i++)
+        {
             Somme += jr[i].age;
-         }
-         Moyenne = Somme/conteur;
-         printf("L'age moyenne des joueurs : %d\n",jr[i].age);
+        }
+        Moyenne = Somme / conteur;
+        printf("%2.f", Moyenne);
 
-         case 3:
+    case 3:
+        int buts;
 
-         case 4:
-         int buts;
+        printf("nbre de buts a saisie :");
+        scanf("%d", &buts);
+        getchar();
 
-         printf("nbre de buts a saisie :");
-         scanf("%d",&buts);
-         getchar();
-          
-         for(int i=0;i<conteur;i++){
-            if(jr[i].buts > buts){
+        for (int i = 0; i < conteur; i++)
+        {
+            if (jr[i].buts > buts)
+            {
 
-                printf("meilleur buteur :\nNom : \nPrenom\nNbre de buts : %d",jr[i].nom,jr[i].prenom,jr[i].buts);
-
+                printf("joueurs ayant marque beacoup de buts : %d", jr[i].buts);
             }
-         }
-         breaks;
+        }
+        break;
 
+    case 4:
+        int maxbuts = jr[0].buts;
+        for (int i = 0; i < conteur; i++)
+        {
+            if (maxbuts < jr[i].buts)
+                ;
+            {
 
+                maxbuts = jr[i].buts;
+            }
+        }
+        for (int i = 0; i < conteur; i++)
+        {
+            if (jr[i].buts == maxbuts)
+            {
+                printf("Meilleur buteur :\n");
+                printf(" %d\n", jr[i].Id);
+                printf(" %s\n", jr[i].nom);
+                printf("%s\n", jr[i].prenom);
+                printf(" %d\n", jr[i].numeroMaillot);
+                printf(" %s\n", jr[i].poste);
+                printf(" %d\n", jr[i].age);
+                printf(" %d\n", jr[i].buts);
+                printf("*****************\n");
+            }
+        }
+        break;
+    case 5:
+        int minage = jr[0].age;
+        int maxage = jr[0].age;
 
+        for (int i = 0; i < conteur; i++)
+        {
+            if (maxage < jr[i].age)
+            {
 
+                maxage = jr[i].age;
+            }
+            if (minage > jr[i].age)
+            {
+
+                minage = jr[i].age;
+            }
+        }
     }
-
-
+    for (int i = 0; i < conteur; i++)
+    {
+        if (jr[i].age == maxage)
+        {
+            printf("Le joueur le plus age:\n");
+            printf(" %d\n", jr[i].Id);
+            printf(" %s\n", jr[i].nom);
+            printf("%s\n", jr[i].prenom);
+            printf(" %d\n", jr[i].numeroMaillot);
+            printf(" %s\n", jr[i].poste);
+            printf(" %d\n", jr[i].age);
+            printf(" %d\n", jr[i].buts);
+            printf("*****************\n");
+        }
+    }
+    for (int i = 0; i < conteur; i++)
+    {
+        if (jr[i].age == minage)
+        {
+            printf("Le joueur le plus jeune:\n");
+            printf(" %d\n", jr[i].Id);
+            printf(" %s\n", jr[i].nom);
+            printf("%s\n", jr[i].prenom);
+            printf(" %d\n", jr[i].numeroMaillot);
+            printf(" %s\n", jr[i].poste);
+            printf(" %d\n", jr[i].age);
+            printf(" %d\n", jr[i].buts);
+            printf("*****************\n");
+        }
+    }
+    break;
 }
-
-
 
 int main()
 {
@@ -485,7 +555,7 @@ int main()
         case 6:
             statistiques();
             break;
-    
+
         case 0:
             printf("Vous avez quitter\n");
             break;
